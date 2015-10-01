@@ -1,0 +1,9 @@
+en:
+  errors:
+    messages:
+      greater: "must be greater than the previous value"
+      greater_or_equal: "must be greater than or equal to the previous value"
+      less: "must be less than the previous value"
+      less_or_equal: "must be less than or equal to the previous value"
+      equal: "must be equal to the previous value"
+      not_equal: "must be other than the previous value"
