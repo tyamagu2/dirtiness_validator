@@ -126,5 +126,15 @@ describe DirtinessValidator do
         it { expect { subject }.not_to change { model.errors[:attr] }.from([]) }
       end
     end
+
+    describe 'when message option is given' do
+      let(:custom_message) { 'custom message' }
+      let(:current_value) { previous_value }
+      before { TestModel.validates :attr, dirtiness: { greater: true,  message: custom_message } }
+
+      it 'uses custom message' do
+        expect { subject }.to change { model.errors[:attr] }.from([]).to([custom_message])
+      end
+    end
   end
 end
