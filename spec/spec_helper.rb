@@ -23,6 +23,11 @@ class TestModel
 
   def save
     changes_applied
+    @persisted = true
+  end
+
+  def persisted?
+    !!@persisted
   end
 
   def reload!

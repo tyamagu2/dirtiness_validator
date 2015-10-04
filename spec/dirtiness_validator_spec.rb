@@ -127,13 +127,24 @@ describe DirtinessValidator do
       end
     end
 
-    describe 'when message option is given' do
+    context 'when message option is given' do
       let(:custom_message) { 'custom message' }
       let(:current_value) { previous_value }
-      before { TestModel.validates :attr, dirtiness: { greater: true,  message: custom_message } }
+      before { TestModel.validates :attr, dirtiness: { greater: true, message: custom_message } }
 
       it 'uses custom message' do
         expect { subject }.to change { model.errors[:attr] }.from([]).to([custom_message])
+      end
+    end
+
+    context 'when model is not persisted' do
+      let(:model) { TestModel.new }
+      let(:current_value) { 100 }
+      before { TestModel.validates :attr, dirtiness: { greater: true } }
+
+      it 'skips validation' do
+        expect { subject }.not_to raise_error
+        expect { subject }.not_to change { model.errors[:attr] }.from([])
       end
     end
   end

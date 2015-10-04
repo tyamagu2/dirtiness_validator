@@ -29,7 +29,11 @@ class Vote < ActiveRecord::Base
 end
 ```
 
+Note that Dirtiness Validator skips validation if the record is not persisted.
+
 To use Dirtiness Validator with ActiveModel, you must include ActiveModell:Dirty and call its methods as instructed in your model.
+Your model's #persisted? method should return true if the changes to the its attributes are ever applied;
+otherwise Dirtiness Validator never invokes its validation.
 
 ```
 class Vote
@@ -50,6 +54,11 @@ class Vote
 
   def save
     changes_applied
+    @persisted = true
+  end
+
+  def persisted?
+    !!@persisted
   end
 end
 ```

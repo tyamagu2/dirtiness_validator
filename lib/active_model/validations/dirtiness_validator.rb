@@ -7,6 +7,8 @@ module ActiveModel
                  equal: :==, not_equal: :!= }.freeze
 
       def validate_each(record, attr_name, value)
+        return unless record.persisted?
+
         # check before_type_cast && allow_xxx option
 
         options.slice(*CHECKS.keys).each do |option, _|
