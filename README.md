@@ -1,4 +1,4 @@
-# DirtinessValidator
+# DirtinessValidator [![Build Status](https://travis-ci.org/tyamagu2/dirtiness_validator.svg?branch=master)](https://travis-ci.org/tyamagu2/dirtiness_validator)
 
 Dirtiness Validator validates the value of the specified attribute against its previous value.
 
