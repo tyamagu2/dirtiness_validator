@@ -29,14 +29,14 @@ class Vote < ActiveRecord::Base
 end
 ```
 
-If symbol is passed to configuration options, Dirtiness Validator invokes the method corresponds to the symbol on
-current and previous values of the attribute and use the return values for the validation.
+Configuration options other than :message can be supplied with a symbol or a proc.
 
 ```
-class Voter < ActiveRecord::Base
-  # validates that name.length is greater than name_was.length
-  validates :name, dirtiness: { greater: :length }
-end
+# This validates that last_voted_at.to_date is greater than last_voted_at_was.to_date.
+validates :last_voted_at, dirtiness: { greater: :to_date }
+
+# This does the same.
+validates :last_voted_at, dirtiness: { greater: -> (value) { value.to_date } }
 ```
 
 Note that Dirtiness Validator skips validation if the record is not persisted.

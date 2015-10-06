@@ -137,6 +137,16 @@ describe DirtinessValidator do
       end
     end
 
+    context 'when proc is passed' do
+      let(:previous_value) { 'b' }
+      let(:current_value) { 'aaa' }
+      before { TestModel.validates :attr, dirtiness: { greater: -> (value) { value.count('a') } } }
+
+      it 'Pass current and previous values to the proc and compares the return values' do
+        expect { subject }.not_to change { model.errors[:attr] }.from([])
+      end
+    end
+
     context 'when message option is given' do
       let(:custom_message) { 'custom message' }
       let(:current_value) { previous_value }
