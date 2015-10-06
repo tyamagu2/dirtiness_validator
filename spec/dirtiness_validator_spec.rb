@@ -127,6 +127,16 @@ describe DirtinessValidator do
       end
     end
 
+    context 'when symbol is passed' do
+      let(:previous_value) { 'b' }
+      let(:current_value) { 'aaa' }
+      before { TestModel.validates :attr, dirtiness: { greater: :length } }
+
+      it 'invokes the method identified by the given symbol on current and previous values and compares the return values' do
+        expect { subject }.not_to change { model.errors[:attr] }.from([])
+      end
+    end
+
     context 'when message option is given' do
       let(:custom_message) { 'custom message' }
       let(:current_value) { previous_value }

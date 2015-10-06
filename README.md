@@ -29,6 +29,16 @@ class Vote < ActiveRecord::Base
 end
 ```
 
+If symbol is passed to configuration options, Dirtiness Validator invokes the method corresponds to the symbol on
+current and previous values of the attribute and use the return values for the validation.
+
+```
+class Voter < ActiveRecord::Base
+  # validates that name.length is greater than name_was.length
+  validates :name, dirtiness: { greater: :length }
+end
+```
+
 Note that Dirtiness Validator skips validation if the record is not persisted.
 
 To use Dirtiness Validator with ActiveModel, you must include ActiveModell:Dirty and call its methods as instructed in your model.

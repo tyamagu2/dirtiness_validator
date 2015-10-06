@@ -11,8 +11,13 @@ module ActiveModel
 
         # check before_type_cast && allow_xxx option
 
-        options.slice(*CHECKS.keys).each do |option, _|
+        options.slice(*CHECKS.keys).each do |option, option_value|
           previous_value = record.__send__("#{attr_name}_was")
+
+          if option_value.is_a?(Symbol)
+            value = value.__send__(option_value)
+            previous_value = previous_value.__send__(option_value)
+          end
 
           unless value.__send__(CHECKS[option], previous_value)
             record.errors.add(attr_name, option, filtered_options(previous_value))
